@@ -6,6 +6,10 @@ namespace GrandNodeOrderIntegration.Services
 {
     public class TrendyolService : ITrendyolService
     {
+        /// <summary>
+        /// Retrieves the latest Trendyol orders from the external service or API.
+        /// </summary>
+        /// <returns>A <see cref="TrendyolOrderModel"/> containing the retrieved order data.</returns>
         public TrendyolOrderModel GetTrendyolOrders()
         {
             TrendyolOrderModel result = new();

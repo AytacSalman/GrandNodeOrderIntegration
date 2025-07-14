@@ -1,11 +1,6 @@
 ﻿using AutoMapper;
 using GrandNodeOrderIntegration.Models;
 using GrandNodeOrderIntegration.Models.GrandNode;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GrandNodeOrderIntegration.Mappers
 {
@@ -46,7 +41,7 @@ namespace GrandNodeOrderIntegration.Mappers
                     opt => opt.MapFrom(src => src.InvoiceAddress.PostalCode))
                 .ForMember(dest =>
                     dest.PhoneNumber,
-                    opt => opt.MapFrom(src => "5545072277"))
+                    opt => opt.MapFrom(src => src.InvoiceAddress.Phone))
                 .ForMember(dest =>
                     dest.Note,
                     opt => opt.MapFrom(src => "note"))

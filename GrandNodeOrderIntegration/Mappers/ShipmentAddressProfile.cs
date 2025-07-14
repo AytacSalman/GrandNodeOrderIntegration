@@ -41,7 +41,7 @@ namespace GrandNodeOrderIntegration.Mappers
                     opt => opt.MapFrom(src => src.ShipmentAddress.PostalCode))
                 .ForMember(dest =>
                     dest.PhoneNumber,
-                    opt => opt.MapFrom(src => "5545072277"))
+                    opt => opt.MapFrom(src => src.ShipmentAddress.Phone))
                 .ForMember(dest =>
                     dest.Note,
                     opt => opt.MapFrom(src => "note"))

@@ -23,6 +23,11 @@ namespace GrandNodeOrderIntegration.Services
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Processes and integrates the given Trendyol order model into the internal system.
+        /// This method transfers order data received from Trendyol into the local order management system.
+        /// </summary>
+        /// <param name="trendyolOrderModel">The model containing order data retrieved from Trendyol.</param>
         public void IntegrateTrendyolOrders(TrendyolOrderModel trendyolOrderModel)
         {
             if (trendyolOrderModel != null)
@@ -51,6 +56,12 @@ namespace GrandNodeOrderIntegration.Services
             }
         }
 
+        /// <summary>
+        /// Retrieves customer information based on the provided email address.
+        /// Returns true if the customer exists; otherwise, false.
+        /// </summary>
+        /// <param name="email">The email address of the customer to look up.</param>
+        /// <returns>True if the customer is found; otherwise, false.</returns>
         private bool GetCustomer(string email)
         {
             string url = $"{_baseApiUrl}odata/Customer/{email}";
@@ -73,6 +84,12 @@ namespace GrandNodeOrderIntegration.Services
             }
         }
 
+        /// <summary>
+        /// Sends a request to create a new customer based on the provided content item.
+        /// Returns the HTTP response from the external service or API.
+        /// </summary>
+        /// <param name="contentItem">The content item containing customer data to be sent in the request.</param>
+        /// <returns>The HTTP response received after attempting to create the customer.</returns>
         private HttpWebResponse CreateCustomer(ContentItem contentItem)
         {
             var url = $"{_baseApiUrl}odata/Customer";
@@ -102,6 +119,12 @@ namespace GrandNodeOrderIntegration.Services
             return result;
         }
 
+        /// <summary>
+        /// Checks whether the products with the given Trendyol SKUs exist or meet specific criteria in the system.
+        /// Returns true if all products pass the check; otherwise, false.
+        /// </summary>
+        /// <param name="trendyolSkuList">A list of Trendyol product SKUs to be verified.</param>
+        /// <returns>True if the products are valid or exist; otherwise, false.</returns>
         private bool CheckProducts(List<string> trendyolSkuList)
         {
             string url = $"{_baseApiUrl}odata/product";
@@ -133,6 +156,11 @@ namespace GrandNodeOrderIntegration.Services
             }
         }
 
+        /// <summary>
+        /// Creates and stores a shipment address using the data provided in the given content item.
+        /// This method extracts address details and prepares them for use in the shipping process.
+        /// </summary>
+        /// <param name="contentItem">The content item containing shipment address information.</param>
         private void CreateShipmentAddress(ContentItem contentItem)
         {
             string encodedEmail = WebUtility.UrlEncode(contentItem.CustomerEmail);
@@ -170,6 +198,11 @@ namespace GrandNodeOrderIntegration.Services
             }
         }
 
+        /// <summary>
+        /// Creates and stores an invoice address based on the information provided in the given content item.
+        /// This method prepares the billing address details for use in the invoicing process.
+        /// </summary>
+        /// <param name="contentItem">The content item containing invoice address information.</param>
         private void CreateInvoiceAddress(ContentItem contentItem)
         {
             string encodedEmail = WebUtility.UrlEncode(contentItem.CustomerEmail);
@@ -207,17 +240,32 @@ namespace GrandNodeOrderIntegration.Services
             }
         }
 
+        /// <summary>
+        /// Creates a new order using the data provided in the specified content item.
+        /// This method extracts order details and initiates the order creation process within the system.
+        /// </summary>
+        /// <param name="contentItem">The content item containing order information.</param>
         private void CreateOrder(ContentItem contentItem)
         {
             //... ORDER END-POINT İ YOK
         }
 
+        /// <summary>
+        /// Adds default HTTP request headers to the specified <see cref="HttpClient"/> instance.
+        /// This typically includes headers such as authorization, content type, or custom headers required by the API.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> instance to which the headers will be added.</param>
         private void AddDefaultRequestHeaders(HttpClient client)
         {
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
+        /// <summary>
+        /// Configures and adds default properties to the specified <see cref="HttpWebRequest"/> instance.
+        /// This may include setting headers, timeouts, content type, or other request-specific settings.
+        /// </summary>
+        /// <param name="request">The <see cref="HttpWebRequest"/> object to configure.</param>
         private void AddHttpWebRequestProperties(HttpWebRequest request)
         {
             request.Method = "POST";
@@ -225,6 +273,10 @@ namespace GrandNodeOrderIntegration.Services
             request.Headers["Authorization"] = $"Bearer {_token}";
         }
 
+        /// <summary>
+        /// Retrieves an authentication token used for authorized API requests.
+        /// </summary>
+        /// <returns>A string representing the authentication token.</returns>
         private string GetToken()
         {
             var url = $"{_baseApiUrl}api/token/create";
