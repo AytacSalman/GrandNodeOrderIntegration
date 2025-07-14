@@ -16,5 +16,16 @@ Bu proje, .NET Core ile geliştirilmiş bir "Background Worker Service" uygulama
 
 ```bash
 git clone https://github.com/AytacSalman/GrandNodeOrderIntegration.git
-cd MyWorkerService
-  
+cd GrandNodeOrderIntegration
+
+MyWorkerService/
+├── Program.cs           --> Giriş noktası
+├── Worker.cs            --> Arka plan iş mantığı
+├── Services/            --> Özel servisler
+├── Models/              --> Veri modelleri
+├── Mappers/             --> Model maplemeleri
+├── appsettings.json     --> Yapılandırmalar
+
+📬 İletişim
+Herhangi bir soru ya da öneri için aytacslmn@gmail.com adresinden iletişime geçebilirsiniz.
+
